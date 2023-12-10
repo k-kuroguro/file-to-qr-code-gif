@@ -33,6 +33,7 @@ const App = () => {
 
    const add = (a: number, b: number) => a + b;
 
+
    return (
       <>
          <RingSpinnerOverlay loading={wasm_loading} />
@@ -40,6 +41,7 @@ const App = () => {
          <Button variant='contained' onClick={() => setCount(add(count, 2))}>Add 2</Button>
          <input type="file" onChange={handleFileChange} />
          <img src={imageUrl} />
+
       </>
    );
 };

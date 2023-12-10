@@ -9,7 +9,7 @@
    "importMap": "./web/import-map.json",
    "tasks": {
       "serve": "packup serve ./web/index.html --config ./deno.json --import-map ./web/import-map.json --static-dir ./web/public",
-      "build": "packup build ./web/index.html --config ./deno.json --import-map ./web/import-map.json --static-dir ./web/public",
+      "build": "packup build ./web/index.html --config ./deno.json --import-map ./web/import-map.json --static-dir ./web/public --static-dist-prefix public",
       "build-wasm": "cd wasm && deno run -A https://deno.land/x/wasmbuild@0.15.4/main.ts --out ../web/public",
       "check-wasm": "deno task build-wasm --check"
    }
