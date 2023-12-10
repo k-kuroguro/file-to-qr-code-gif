@@ -1,0 +1,9 @@
+{
+   "imports": {
+      "@material-ui/core": "https://cdn.skypack.dev/@material-ui/core@v4.12.4?dts",
+      "react": "https://cdn.skypack.dev/react@18.1.0?dts",
+      "react-dom": "https://cdn.skypack.dev/react-dom@18.1.0?dts",
+      "react-spinner-overlay": "https://cdn.skypack.dev/react-spinner-overlay@0.1.33?dts",
+      "wasm": "./public/wasm.generated.js"
+   }
+}
