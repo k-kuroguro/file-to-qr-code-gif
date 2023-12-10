@@ -27019,7 +27019,7 @@
     const [imageUrl, setImageUrl] = useState("");
     useEffect(() => {
       (async () => {
-        await instantiate({ url: new URL("wasm_bg.wasm", location.origin) });
+        await instantiate({ url: new URL("public/wasm_bg.wasm", location.origin) });
         setWasmLoading(false);
       })();
     }, []);
