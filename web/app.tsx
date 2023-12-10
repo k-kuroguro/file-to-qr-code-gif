@@ -12,7 +12,7 @@ const App = () => {
 
    useEffect(() => {
       (async () => {
-         await instantiate({ url: new URL('public/wasm_bg.wasm', location.origin + location.pathname) });
+         await instantiate({ url: new URL('public/wasm_bg.wasm', new URL(location.origin + location.pathname)) });
          setWasmLoading(false);
       })();
    }, []);
