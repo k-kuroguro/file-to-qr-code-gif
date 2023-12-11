@@ -57,6 +57,7 @@ pub fn generate_gif(file: File) -> Vec<u8> {
    let mut bytes: Vec<u8> = Vec::new();
    {
       let mut encoder = codecs::gif::GifEncoder::new(&mut bytes);
+      encoder.set_repeat(codecs::Repeat::Infinite).unwrap();
       let frames = images
          .map(|f| {
             image::Frame::from_parts(

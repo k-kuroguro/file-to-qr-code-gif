@@ -1,9 +1,11 @@
 {
    "imports": {
-      "@material-ui/core": "https://cdn.skypack.dev/@material-ui/core@v4.12.4?dts",
+      "@material-ui/core": "https://cdn.skypack.dev/@material-ui/core@4.12.4?dts",
       "react": "https://cdn.skypack.dev/react@18.1.0?dts",
       "react-dom": "https://cdn.skypack.dev/react-dom@18.1.0?dts",
       "react-spinner-overlay": "https://cdn.skypack.dev/react-spinner-overlay@0.1.33?dts",
-      "wasm": "./public/wasm.generated.js"
+      "wasm": "./public/wasm.generated.js",
+      "@zxing/library": "https://cdn.skypack.dev/@zxing/library@0.20.0?dts",
+      "@zxing/browser": "https://cdn.skypack.dev/@zxing/browser@0.1.4?dts"
    }
 }

@@ -1,18 +1,32 @@
 import { Button } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { Result } from '@zxing/library';
+import React, { FC, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { RingSpinnerOverlay } from 'react-spinner-overlay';
-import { File, generate_gif, instantiate } from "wasm";
+import { File, generate_gif, instantiate } from 'wasm';
+import { QrCodeReader } from './components/QRCodeReader.tsx';
 
+const QrCodeResult: FC<{ qrCodes: string[] }> = ({ qrCodes }) => {
+   return (
+      <div>
+         {qrCodes.map((qrCode, index) => <div key={index}>{qrCode}</div>)}
+      </div>
+   );
+};
 
 const App = () => {
    const [count, setCount] = useState(0);
    const [wasm_loading, setWasmLoading] = useState(true);
-   const [imageUrl, setImageUrl] = useState("");
+   const [imageUrl, setImageUrl] = useState('');
 
    useEffect(() => {
       (async () => {
-         await instantiate({ url: new URL('public/wasm_bg.wasm', new URL(location.origin + location.pathname)) });
+         await instantiate({
+            url: new URL(
+               'public/wasm_bg.wasm',
+               new URL(location.origin + location.pathname),
+            ),
+         });
          setWasmLoading(false);
       })();
    }, []);
@@ -31,19 +45,30 @@ const App = () => {
       setImageUrl(imageUrl);
    };
 
-   const add = (a: number, b: number) => a + b;
+   const [str, setStr] = useState<string[]>([]);
 
+   const add = (a: number, b: number) => a + b;
 
    return (
       <>
          <RingSpinnerOverlay loading={wasm_loading} />
          <div>count: {count}</div>
-         <Button variant='contained' onClick={() => setCount(add(count, 2))}>Add 2</Button>
-         <input type="file" onChange={handleFileChange} />
+         <Button variant='contained' onClick={() => setCount(add(count, 2))}>
+            Add 2
+         </Button>
+         <input type='file' onChange={handleFileChange} />
          <img src={imageUrl} />
-
+         <QrCodeResult qrCodes={str} />
+         <QrCodeReader
+            onReadQRCode={(result: Result) => {
+               setStr((texts) => [...texts, result.getText()]);
+            }}
+         />
       </>
    );
 };
 
-addEventListener('DOMContentLoaded', () => render(<App />, document.getElementById('app')));
+addEventListener(
+   'DOMContentLoaded',
+   () => render(<App />, document.getElementById('app')),
+);
