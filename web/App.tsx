@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { RingSpinnerOverlay } from 'react-spinner-overlay';
 import { File, generate_gif, instantiate } from 'wasm';
-import { QrCodeReader } from './components/QRCodeReader.tsx';
+import { QrCodeReader } from './components/QrCodeReader.tsx';
 
 const QrCodeResult: FC<{ qrCodes: string[] }> = ({ qrCodes }) => {
    return (
@@ -15,7 +15,6 @@ const QrCodeResult: FC<{ qrCodes: string[] }> = ({ qrCodes }) => {
 };
 
 const App = () => {
-   const [count, setCount] = useState(0);
    const [wasm_loading, setWasmLoading] = useState(true);
    const [imageUrl, setImageUrl] = useState('');
 
@@ -45,17 +44,20 @@ const App = () => {
       setImageUrl(imageUrl);
    };
 
-   const [str, setStr] = useState<string[]>([]);
+   const [reading, setReading] = useState(false);
+   const onClick = () => {
+      setReading((reading) => !reading);
+   };
 
-   const add = (a: number, b: number) => a + b;
+   const [str, setStr] = useState<string[]>([]);
 
    return (
       <>
-         <RingSpinnerOverlay loading={wasm_loading} />
-         <div>count: {count}</div>
-         <Button variant='contained' onClick={() => setCount(add(count, 2))}>
-            Add 2
+         <Button variant='contained' color='primary' onClick={onClick}>
+            toggle
          </Button>
+         <div>{reading}</div>
+         <RingSpinnerOverlay loading={wasm_loading} />
          <input type='file' onChange={handleFileChange} />
          <img src={imageUrl} />
          <QrCodeResult qrCodes={str} />
@@ -63,6 +65,7 @@ const App = () => {
             onReadQRCode={(result: Result) => {
                setStr((texts) => [...texts, result.getText()]);
             }}
+            reading={reading}
          />
       </>
    );
