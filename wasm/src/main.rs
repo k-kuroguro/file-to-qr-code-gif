@@ -1,5 +1,6 @@
 use image::{
    codecs::{self},
+   gif::Repeat,
    Delay, EncodableLayout, ImageBuffer, Rgba,
 };
 use qrcode::{bits::Bits, EcLevel, QrCode, QrResult, Version};
@@ -8,6 +9,7 @@ use std::time::Duration;
 const QR_CODE_MAX_CAPACITY: usize = 858; // [B], version 20, error correction level L
 const QR_CODE_VERSION: Version = Version::Normal(20);
 const QR_CODE_EC_LEVEL: EcLevel = EcLevel::L;
+const QR_CODE_MAX_LEN: usize = 16;
 
 pub struct File {
    name: String,
@@ -38,26 +40,21 @@ fn qr_code_to_image(code: &QrCode) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
 }
 
 pub fn generate_gif(file: File) -> Vec<u8> {
-   // let code_count = file.size / QR_CODE_MAX_CAPACITY;
-   // let codes = (0..code_count + 1)
-   //    .map(|i| {
-   //       generate_qr_code(
-   //          &file.buf[i * QR_CODE_MAX_CAPACITY..((i + 1) * QR_CODE_MAX_CAPACITY).min(file.size)],
-   //       )
-   //    })
-   //    .collect::<QrResult<Vec<QrCode>>>()
-   //    .unwrap();
-   let data = ["Hello", "World", "Today", "Is", "A", "Good", "Day"].map(|f| f.as_bytes());
-   let codes = data
-      .iter()
-      .map(|f| generate_qr_code(f))
+   let code_count = file.size / QR_CODE_MAX_CAPACITY;
+   assert!(code_count + 1 <= QR_CODE_MAX_LEN);
+   let codes = (0..code_count + 1)
+      .map(|i| {
+         generate_qr_code(
+            &file.buf[i * QR_CODE_MAX_CAPACITY..((i + 1) * QR_CODE_MAX_CAPACITY).min(file.size)],
+         )
+      })
       .collect::<QrResult<Vec<QrCode>>>()
       .unwrap();
    let images = codes.iter().map(qr_code_to_image);
    let mut bytes: Vec<u8> = Vec::new();
    {
       let mut encoder = codecs::gif::GifEncoder::new(&mut bytes);
-      encoder.set_repeat(codecs::Repeat::Infinite).unwrap();
+      encoder.set_repeat(Repeat::Infinite).unwrap();
       let frames = images
          .map(|f| {
             image::Frame::from_parts(

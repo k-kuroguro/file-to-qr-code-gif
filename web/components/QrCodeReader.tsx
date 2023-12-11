@@ -2,13 +2,23 @@ import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
 import { Result } from '@zxing/library';
 import React, { FC, useEffect, useRef } from 'react';
 
-export const QrCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({
+type Props = {
+   onReadQRCode: (result: Result) => void;
+   reading?: boolean;
+};
+
+export const QrCodeReader: FC<Props> = ({
    onReadQRCode,
+   reading = false,
 }) => {
    const controlsRef = useRef<IScannerControls | null>();
    const videoRef = useRef<HTMLVideoElement>(null);
 
    useEffect(() => {
+      if (!reading) {
+         controlsRef.current?.stop();
+         return;
+      }
       if (!videoRef.current) {
          return;
       }
@@ -34,7 +44,7 @@ export const QrCodeReader: FC<{ onReadQRCode: (text: Result) => void }> = ({
          controlsRef.current.stop();
          controlsRef.current = null;
       };
-   }, [onReadQRCode]);
+   }, [onReadQRCode, reading]);
 
    return (
       <video
