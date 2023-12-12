@@ -9,8 +9,8 @@ license = "MIT"
 crate-type = ["cdylib"]
 
 [dependencies]
-image = "0.23.7"
-qrcode = "0.12.0"
+image = "^0.24"
+qrcode = { git = "https://github.com/k-kuroguro/qrcode-rust", branch = "master" }
 
 js-sys = "0.3.66"
 web-sys = "0.3.66"
