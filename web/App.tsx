@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import { Result } from '@zxing/library';
 import React, { FC, useEffect, useState } from 'react';
 import { render } from 'react-dom';
@@ -47,12 +47,21 @@ const App = () => {
    const [reading, setReading] = useState(false);
    const onClick = () => {
       setReading((reading) => !reading);
+      setOpen(true);
    };
 
    const [str, setStr] = useState<string[]>([]);
+   const [open, setOpen] = useState(false);
+
+   const handleClose = () => {
+      setOpen(false);
+   };
 
    return (
       <>
+         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <div>hello</div>
+         </Snackbar>
          <Button variant='contained' color='primary' onClick={onClick}>
             toggle
          </Button>
