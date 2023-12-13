@@ -7,7 +7,7 @@ type Props = {
    reading?: boolean;
 };
 
-export const QrCodeReader: FC<Props> = ({
+const QrCodeReader: FC<Props> = ({
    onReadQRCode,
    reading = false,
 }) => {
@@ -53,3 +53,5 @@ export const QrCodeReader: FC<Props> = ({
       />
    );
 };
+
+export default QrCodeReader;

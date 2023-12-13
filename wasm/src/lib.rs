@@ -126,7 +126,7 @@ fn images_to_gif(images: &Vec<QrCodeImage>) -> ImageResult<Vec<u8>> {
 pub fn generate_gif(file: File) -> Result<Vec<u8>, JsError> {
    if file.size > MAX_FILE_SIZE {
       return Err(JsError::new(&format!(
-         "File size is too big. Max file size is {} bytes",
+         "File size is too big. Max file size is {} bytes.",
          MAX_FILE_SIZE
       )));
    }
