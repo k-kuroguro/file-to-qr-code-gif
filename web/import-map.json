@@ -1,0 +1,21 @@
+{
+   "imports": {
+      "path": "https://deno.land/std@0.130.0/path/mod.ts",
+      "mime": "https://cdn.skypack.dev/mime@3.0.0?dts",
+      "encoding-japanese": "https://cdn.skypack.dev/encoding-japanese@2.0.0?dts",
+      "styled-components": "https://cdn.skypack.dev/styled-components@6.1.1?dts",
+      "react": "https://cdn.skypack.dev/react@18.1.0?dts",
+      "react-dom": "https://cdn.skypack.dev/react-dom@18.1.0?dts",
+      "react-router-dom": "https://cdn.skypack.dev/react-router-dom@5.2.0?dts",
+      "react-spinner-overlay": "https://cdn.skypack.dev/react-spinner-overlay@0.1.33?dts",
+      "react-device-detect": "https://cdn.skypack.dev/react-device-detect@2.0.0?dts",
+      "react-toast-notifications": "https://cdn.skypack.dev/react-toast-notifications@2.5.1?dts",
+      "react-error-boundary": "https://cdn.skypack.dev/react-error-boundary@4.0.12?dts",
+      "react-icons/bs": "https://cdn.skypack.dev/react-icons@4.12.0/bs?dts",
+      "react-bootstrap": "./src/js/react-bootstrap.generated.js",
+      "use-media": "https://cdn.skypack.dev/use-media@1.5.0?dts",
+      "wasm": "./src/js/wasm.generated.js",
+      "zxing-wasm/reader": "../zxing-wasm/reader/index.ts",
+      "@types/emscripten": "https://cdn.skypack.dev/@types/emscripten@1.39.10?dts"
+   }
+}

@@ -1,0 +1,23 @@
+{
+   "compilerOptions": {
+      "strict": true,
+      "lib": [
+         "esnext",
+         "dom"
+      ]
+   },
+   "importMap": "./web/import-map.json",
+   "tasks": {
+      "serve": "packup serve ./web/index.html --config ./deno.json --import-map ./web/import-map.json --static-dir ./web/static",
+      "build": "packup build ./web/index.html --config ./deno.json --import-map ./web/import-map.json --static-dir ./web/static",
+      "build-wasm": "cd wasm && deno run -A https://deno.land/x/wasmbuild@0.15.4/main.ts --out ../web/src/js && mv ../web/src/js/wasm_bg.wasm ../web/static",
+      "check-wasm": "cd wasm && deno run -A https://deno.land/x/wasmbuild@0.15.4/main.ts --out ../web/src/js  --check",
+      "build-react-bootstrap": "cd react-bootstrap && npm run build"
+   },
+   "fmt": {
+      "indentWidth": 3,
+      "singleQuote": true,
+      "semiColons": true,
+      "useTabs": false
+   }
+}
