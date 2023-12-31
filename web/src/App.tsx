@@ -10,12 +10,15 @@ import React, {
 import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 import { isMobile } from 'react-device-detect';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { BsGithub } from 'react-icons/bs';
 import { HashRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { RingSpinnerOverlay } from 'react-spinner-overlay';
 import { ToastProvider } from 'react-toast-notifications';
 import { styled } from 'styled-components';
+import { useMedia } from 'use-media';
 import Generator from './routes/Generator.tsx';
 import Scanner from './routes/Scanner/index.tsx';
+import breakpoints from './utils/breakpoints.ts';
 import useWasm, { WasmLoadState, WasmProvider } from './utils/useWasm.tsx';
 
 const App = () => {
@@ -76,14 +79,27 @@ const App = () => {
 
 const Header = memo(
    forwardRef((_, ref) => {
+      const isMobile = useMedia({ maxWidth: breakpoints.lg });
+
       return (
          <Navbar ref={ref} expand='lg' className='bg-body-tertiary'>
             <Container fluid>
                <Navbar.Brand>
                   File2QRCodeGif
                </Navbar.Brand>
-               <Navbar.Toggle aria-controls='basic-navbar-nav' />
-               <Navbar.Collapse id='basic-navbar-nav'>
+               {isMobile && (
+                  <Row>
+                     <Col>
+                        <Nav>
+                           <SourceCodeLink />
+                        </Nav>
+                     </Col>
+                     <Col>
+                        <Navbar.Toggle aria-controls='header-links' />
+                     </Col>
+                  </Row>
+               )}
+               <Navbar.Collapse id='header-links'>
                   <Nav
                      variant='underline'
                      className='me-auto'
@@ -95,12 +111,25 @@ const Header = memo(
                         Scanner
                      </Nav.Link>
                   </Nav>
+                  {!isMobile && (
+                     <Nav>
+                        <SourceCodeLink />
+                     </Nav>
+                  )}
                </Navbar.Collapse>
             </Container>
          </Navbar>
       );
    }),
 );
+
+const SourceCodeLink = () => {
+   return (
+      <Nav.Link href='https://github.com/k-kuroguro/file-to-qr-code-gif'>
+         <BsGithub size='25' />
+      </Nav.Link>
+   );
+};
 
 const Content = styled.div<{ headerHeight: number }>`
    height: calc(100% - ${({ headerHeight }) => headerHeight}px);
