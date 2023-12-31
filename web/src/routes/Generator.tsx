@@ -9,6 +9,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useErrorBoundary } from 'react-error-boundary';
 import { styled } from 'styled-components';
 import { useMedia } from 'use-media';
+import breakpoints from '../utils/breakpoints.ts';
 import { wasmIsNotReadyError } from '../utils/error.ts';
 import useWasm, { WasmExports, WasmLoadState } from '../utils/useWasm.tsx';
 
@@ -24,7 +25,7 @@ const Generator = () => {
    const [fileSizeError, setFileSizeError] = useState<string | null>(null);
    const [fileChanged, setFileChanged] = useState(false);
    const fileInput = useRef<HTMLInputElement>(null);
-   const isMobile = useMedia({ maxWidth: '992px' /* lg breakpoint */ });
+   const isMobile = useMedia({ maxWidth: breakpoints.lg });
    const { showBoundary } = useErrorBoundary();
    const wasm = useWasm();
 
